@@ -1,13 +1,16 @@
 /*########################*/
 /* ARQUIVO NO DIRETORIO 'lib/views/user_list.dart'*/
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:register/data/dummy_users.dart';
 import 'package:register/components/user_tile.dart';
+import 'package:register/provider/users.dart';
+import 'package:register/routes/app_routes.dart';
 
 class UserList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const users = {...DUMMY_USERS};
+    final Users users = Provider.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -15,14 +18,18 @@ class UserList extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(
+                AppRoutes.USER_FORM,
+              );
+            },
           )
         ],
       ), //AppBar
       body: ListView.builder(
-          itemCount: users.length,
-          itemBuilder: (ctx, i) => UserTile(users.values.elementAt(i))),
-    ); //Scaffold
+          itemCount: users.count,
+          itemBuilder: (ctx, i) => UserTile(users.byIndex(i))),
+    );
   }
 }
 
