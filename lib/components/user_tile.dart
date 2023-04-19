@@ -13,7 +13,11 @@ class UserTile extends StatelessWidget {
     final avatar = user.avatarURL.isEmpty
         ? ClipRRect(
             borderRadius: BorderRadius.circular(15.0),
-            child: const Icon(Icons.person))
+            child: Image.network(
+              user.gender == 'Masculino'
+                  ? 'https://cdn.pixabay.com/photo/2018/08/28/12/41/avatar-3637425_960_720.png'
+                  : 'https://cdn.pixabay.com/photo/2014/04/03/10/32/user-310807_960_720.png',
+            ))
         : Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0),
