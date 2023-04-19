@@ -8,7 +8,7 @@ Simples Register como o nome já diz, é uma simples aplicação utilizando Flut
 A aplicação consiste em uma listagem de usuarios já cadastrados, podendo adicionar mais usuarios, editar os usuarios já cadastrados e por fim excluir podendo exclui-los.
 
 ## Layout
-![Mobile 1](https://i.postimg.cc/C1fRbyrP/Screenshot-1681927383.png) ![Mobile 2](https://i.postimg.cc/5trHH9gQ/Screenshot-1681927388.png)
+![Mobile 1](https://i.postimg.cc/xTg1JTTj/Screenshot-1681927383.png) ![Mobile 2](https://i.postimg.cc/gkG026pB/Screenshot-1681927388.png)
 
 # Autor
 
