@@ -11,55 +11,73 @@ class UserTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final avatar = user.avatarURL.isEmpty
-        ? const CircleAvatar(child: Icon(Icons.person))
-        : CircleAvatar(backgroundImage: NetworkImage(user.avatarURL));
-    return ListTile(
-      leading: avatar,
-      title: Text(user.name),
-      subtitle: Text(user.email),
-      trailing: SizedBox(
-        width: 100,
-        child: Row(
-          children: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.edit),
-              color: Colors.yellow,
-              onPressed: () {
-                Navigator.of(context).pushNamed(
-                  AppRoutes.userForm,
-                  arguments: user,
-                );
-              },
-            ), //IconButton
-            IconButton(
-                icon: const Icon(Icons.delete),
-                color: Colors.red,
+        ? ClipRRect(
+            borderRadius: BorderRadius.circular(15.0),
+            child: const Icon(Icons.person))
+        : Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15.0),
+              border: Border.all(
+                color: Colors.grey.shade300,
+                width: 1.0,
+              ),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15.0),
+              child: Image.network(user.avatarURL),
+            ),
+          );
+
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: ListTile(
+        leading: avatar,
+        title: Text(user.name),
+        subtitle: Text(user.email),
+        trailing: SizedBox(
+          width: 100,
+          child: Row(
+            children: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.edit),
+                color: Colors.yellow,
                 onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (ctx) => AlertDialog(
-                      title: const Text('Excluir Usuário'),
-                      content: const Text('Tem certeza?'),
-                      actions: <Widget>[
-                        OutlinedButton(
-                          onPressed: () => Navigator.of(context).pop(true),
-                          child: const Text('Sim'),
-                        ),
-                        OutlinedButton(
-                          onPressed: () => Navigator.of(context).pop(false),
-                          child: const Text('Não'),
-                        ),
-                      ],
-                    ),
-                  ).then((confirmed) {
-                    if (confirmed) {
-                      Provider.of<Users>(context, listen: false).remove(user);
-                    }
-                  });
-                }) //IconButton
-          ], //<Widget>
-        ), //Row
-      ), //Container
+                  Navigator.of(context).pushNamed(
+                    AppRoutes.userForm,
+                    arguments: user,
+                  );
+                },
+              ), //IconButton
+              IconButton(
+                  icon: const Icon(Icons.delete),
+                  color: Colors.red,
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (ctx) => AlertDialog(
+                        title: const Text('Excluir Usuário'),
+                        content: const Text('Tem certeza?'),
+                        actions: <Widget>[
+                          OutlinedButton(
+                            onPressed: () => Navigator.of(context).pop(true),
+                            child: const Text('Sim'),
+                          ),
+                          OutlinedButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: const Text('Não'),
+                          ),
+                        ],
+                      ),
+                    ).then((confirmed) {
+                      if (confirmed) {
+                        Provider.of<Users>(context, listen: false).remove(user);
+                      }
+                    });
+                  }) //IconButton
+            ], //<Widget>
+          ), //Row
+        ), //Container
+      ),
     ); //ListTile
   }
 }
