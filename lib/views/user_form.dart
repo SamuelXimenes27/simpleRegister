@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:register/components/textfield.dart';
 import 'package:register/models/user.dart';
 import 'package:register/provider/users.dart';
+
+import '../components/appbar.dart';
 
 class UserForm extends StatefulWidget {
   const UserForm({Key? key}) : super(key: key);
@@ -40,31 +43,27 @@ class _UserFormState extends State<UserForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Formulário de Usuário'),
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {
-              final isValid = _form!.currentState!.validate();
-
-              if (isValid) {
-                _form!.currentState!.save();
-
-                Provider.of<Users>(context, listen: false).put(
-                  User(
-                    id: _formData['id'] ?? ' ',
-                    name: _formData['name'] ?? ' ',
-                    email: _formData['email'] ?? ' ',
-                    avatarURL: _formData['avatarURL'] ?? ' ',
-                  ),
-                );
-
-                Navigator.of(context).pop();
-              }
-            },
-            icon: const Icon(Icons.save),
-          )
-        ],
+      appBar: PreferredSize(
+        preferredSize: const Size(100, 100),
+        child: CustomAppBar(
+          title: "Novo \nUsuário",
+          isForm: true,
+          onPressed: () {
+            final isValid = _form!.currentState!.validate();
+            if (isValid) {
+              _form!.currentState!.save();
+              Provider.of<Users>(context, listen: false).put(
+                User(
+                  id: _formData['id'] ?? ' ',
+                  name: _formData['name'] ?? ' ',
+                  email: _formData['email'] ?? ' ',
+                  avatarURL: _formData['avatarURL'] ?? ' ',
+                ),
+              );
+              Navigator.of(context).pop();
+            }
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
@@ -72,34 +71,35 @@ class _UserFormState extends State<UserForm> {
           key: _form,
           child: Column(
             children: <Widget>[
-              TextFormField(
-                initialValue: _formData['name'],
-                decoration: const InputDecoration(labelText: 'Nome'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Ocorreu um erro";
-                  }
-                  if (value.trim().length < 5) {
-                    return "Nome muito pequeno. No minimo 5 letras.";
-                  }
-                  return null;
-                },
+              CustomTextField(
+                initialValue: _formData['name'] ?? '',
+                isName: true,
                 onSaved: (value) => _formData['name'] = value,
               ),
-              TextFormField(
-                initialValue: _formData['email'],
-                decoration: const InputDecoration(labelText: 'Email'),
+              CustomTextField(
+                initialValue: _formData['email'] ?? '',
+                isEmail: true,
                 onSaved: (value) => _formData['email'] = value,
               ),
-              TextFormField(
-                initialValue: _formData['avatarURL'],
-                decoration: const InputDecoration(labelText: 'URL do Avatar'),
+              CustomTextField(
+                initialValue: _formData['avatarURL'] ?? '',
+                isLink: true,
                 onSaved: (value) => _formData['avatarURL'] = value,
-              )
+              ),
             ],
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: const Center(
+          child: Icon(Icons.subdirectory_arrow_left_outlined),
+        ),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        tooltip: 'Voltar',
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

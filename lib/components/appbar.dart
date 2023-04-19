@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../routes/app_routes.dart';
-
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({Key? key}) : super(key: key);
+  final String? title;
+  final void Function()? onPressed;
+  final bool? isForm;
+  const CustomAppBar({
+    Key? key,
+    required this.title,
+    required this.onPressed,
+    this.isForm = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +19,9 @@ class CustomAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Lista de\nUsuários",
-            style: TextStyle(
+          Text(
+            title!,
+            style: const TextStyle(
                 color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold),
           ),
           Padding(
@@ -32,13 +38,9 @@ class CustomAppBar extends StatelessWidget {
                 radius: 25,
                 backgroundColor: Colors.white,
                 child: IconButton(
-                  icon: const Icon(Icons.add),
+                  icon: Icon(isForm! ? Icons.save : Icons.add),
                   color: const Color(0xff53E88B),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(
-                      AppRoutes.userForm,
-                    );
-                  },
+                  onPressed: onPressed,
                 ),
               ),
             ),
