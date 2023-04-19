@@ -5,9 +5,11 @@ import 'package:register/routes/app_routes.dart';
 import 'package:register/views/user_form.dart';
 import 'package:register/views/user_list.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -24,8 +26,8 @@ class MyApp extends StatelessWidget {
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
           routes: {
-            AppRoutes.HOME: (_) => UserList(),
-            AppRoutes.USER_FORM: (ctx) => UserForm()
+            AppRoutes.home: (_) => const UserList(),
+            AppRoutes.userForm: (ctx) => const UserForm()
           }),
     );
   }

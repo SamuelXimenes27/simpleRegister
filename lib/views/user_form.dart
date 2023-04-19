@@ -1,11 +1,11 @@
-import 'package:flutter/widgets.dart';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:register/models/user.dart';
 import 'package:register/provider/users.dart';
 
 class UserForm extends StatefulWidget {
+  const UserForm({Key? key}) : super(key: key);
+
   @override
   State<UserForm> createState() => _UserFormState();
 }
@@ -16,12 +16,10 @@ class _UserFormState extends State<UserForm> {
   final Map<String?, String?> _formData = {};
 
   void _loadFormData(User user) {
-    if (user != null) {
-      _formData['id'] = user.id;
-      _formData['name'] = user.name;
-      _formData['email'] = user.email;
-      _formData['avatarURL'] = user.avatarURL;
-    }
+    _formData['id'] = user.id;
+    _formData['name'] = user.name;
+    _formData['email'] = user.email;
+    _formData['avatarURL'] = user.avatarURL;
   }
 
   @override
@@ -36,7 +34,7 @@ class _UserFormState extends State<UserForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Formulário de Usuário'),
+        title: const Text('Formulário de Usuário'),
         actions: <Widget>[
           IconButton(
             onPressed: () {
@@ -57,19 +55,19 @@ class _UserFormState extends State<UserForm> {
                 Navigator.of(context).pop();
               }
             },
-            icon: Icon(Icons.save),
+            icon: const Icon(Icons.save),
           )
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Form(
           key: _form,
           child: Column(
             children: <Widget>[
               TextFormField(
                 initialValue: _formData['name'],
-                decoration: InputDecoration(labelText: 'Nome'),
+                decoration: const InputDecoration(labelText: 'Nome'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "Ocorreu um erro";
@@ -83,12 +81,12 @@ class _UserFormState extends State<UserForm> {
               ),
               TextFormField(
                 initialValue: _formData['email'],
-                decoration: InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(labelText: 'Email'),
                 onSaved: (value) => _formData['email'] = value,
               ),
               TextFormField(
                 initialValue: _formData['avatarURL'],
-                decoration: InputDecoration(labelText: 'URL do Avatar'),
+                decoration: const InputDecoration(labelText: 'URL do Avatar'),
                 onSaved: (value) => _formData['avatarURL'] = value,
               )
             ],

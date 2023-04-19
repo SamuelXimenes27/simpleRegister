@@ -1,6 +1,3 @@
-/*########################*/
-/* ARQUIVO NO DIRETORIO 'lib/components/user_tile.dart'*/
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:register/models/user.dart';
@@ -10,47 +7,47 @@ import 'package:register/routes/app_routes.dart';
 class UserTile extends StatelessWidget {
   final User user;
 
-  const UserTile(this.user);
+  const UserTile(this.user, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final avatar = user.avatarURL == null || user.avatarURL.isEmpty
-        ? CircleAvatar(child: Icon(Icons.person))
+    final avatar = user.avatarURL.isEmpty
+        ? const CircleAvatar(child: Icon(Icons.person))
         : CircleAvatar(backgroundImage: NetworkImage(user.avatarURL));
     return ListTile(
       leading: avatar,
       title: Text(user.name),
       subtitle: Text(user.email),
-      trailing: Container(
+      trailing: SizedBox(
         width: 100,
         child: Row(
           children: <Widget>[
             IconButton(
-              icon: Icon(Icons.edit),
+              icon: const Icon(Icons.edit),
               color: Colors.yellow,
               onPressed: () {
                 Navigator.of(context).pushNamed(
-                  AppRoutes.USER_FORM,
+                  AppRoutes.userForm,
                   arguments: user,
                 );
               },
             ), //IconButton
             IconButton(
-                icon: Icon(Icons.delete),
+                icon: const Icon(Icons.delete),
                 color: Colors.red,
                 onPressed: () {
                   showDialog(
                     context: context,
                     builder: (ctx) => AlertDialog(
-                      title: Text('Excluir Usuário'),
-                      content: Text('Tem certeza?'),
+                      title: const Text('Excluir Usuário'),
+                      content: const Text('Tem certeza?'),
                       actions: <Widget>[
-                        FlatButton(
+                        OutlinedButton(
                           onPressed: () => Navigator.of(context).pop(true),
-                          child: Text('Sim'),
+                          child: const Text('Sim'),
                         ),
-                        FlatButton(
+                        OutlinedButton(
                           onPressed: () => Navigator.of(context).pop(false),
-                          child: Text('Não'),
+                          child: const Text('Não'),
                         ),
                       ],
                     ),
@@ -66,5 +63,3 @@ class UserTile extends StatelessWidget {
     ); //ListTile
   }
 }
-
-/*########################*/

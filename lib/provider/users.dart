@@ -6,7 +6,7 @@ import 'package:register/data/dummy_users.dart';
 import 'package:register/models/user.dart';
 
 class Users with ChangeNotifier {
-  final Map<String, User> _items = {...DUMMY_USERS};
+  final Map<String, User> _items = {...dummyUsers};
 
   List<User> get all {
     return [..._items.values];
@@ -21,6 +21,7 @@ class Users with ChangeNotifier {
   }
 
   void put(User user) {
+    // ignore: unnecessary_null_comparison
     if (user == null) {
       return;
     }
@@ -52,9 +53,7 @@ class Users with ChangeNotifier {
   }
 
   void remove(User user) {
-    if (user != null && user.id != null) {
-      _items.remove(user.id);
-      notifyListeners();
-    }
+    _items.remove(user.id);
+    notifyListeners();
   }
 }
