@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:register/components/user_tile.dart';
 import 'package:register/provider/users.dart';
-import 'package:register/routes/app_routes.dart';
+
+import '../components/appbar.dart';
 
 class UserList extends StatelessWidget {
   const UserList({Key? key}) : super(key: key);
@@ -12,19 +13,10 @@ class UserList extends StatelessWidget {
     final Users users = Provider.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Lista de Usuários'),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              Navigator.of(context).pushNamed(
-                AppRoutes.userForm,
-              );
-            },
-          )
-        ],
-      ), //AppBar
+      appBar: const PreferredSize(
+        preferredSize: Size(100, 100),
+        child: CustomAppBar(),
+      ),
       body: ListView.builder(
           itemCount: users.count,
           itemBuilder: (ctx, i) => UserTile(users.byIndex(i))),
