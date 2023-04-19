@@ -11,9 +11,14 @@ class UserForm extends StatefulWidget {
 }
 
 class _UserFormState extends State<UserForm> {
-  final _form = GlobalKey<FormState>();
+  final GlobalKey<FormState>? _form = GlobalKey<FormState>();
 
-  final Map<String?, String?> _formData = {};
+  final Map<String?, String?> _formData = {
+    'id': null,
+    'name': null,
+    'email': null,
+    'avatarURL': null,
+  };
 
   void _loadFormData(User user) {
     _formData['id'] = user.id;
@@ -26,8 +31,10 @@ class _UserFormState extends State<UserForm> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    final user = ModalRoute.of(context)!.settings.arguments as User;
-    _loadFormData(user);
+    final user = ModalRoute.of(context)?.settings.arguments as User?;
+    if (user != null) {
+      _loadFormData(user);
+    }
   }
 
   @override
@@ -38,10 +45,10 @@ class _UserFormState extends State<UserForm> {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              final isValid = _form.currentState!.validate();
+              final isValid = _form!.currentState!.validate();
 
               if (isValid) {
-                _form.currentState!.save();
+                _form!.currentState!.save();
 
                 Provider.of<Users>(context, listen: false).put(
                   User(
