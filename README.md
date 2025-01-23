@@ -8,7 +8,7 @@ Simple Register as the name implies, is a simple application using Flutter desig
 The application consists of a list of users already registered, being able to add more users, edit the users already registered and finally delete them.
 
 ## Layout
-![Mobile 1](https://i.postimg.cc/xTg1JTTj/Screenshot-1681927383.png) ![Mobile 2](https://i.postimg.cc/gkG026pB/Screenshot-1681927388.png)
+![Mobile 1|300](https://i.postimg.cc/xTg1JTTj/Screenshot-1681927383.png) ![Mobile 2|300](https://i.postimg.cc/gkG026pB/Screenshot-1681927388.png)
 
 # Author
 
